@@ -1,6 +1,7 @@
 package bitcamp.pms.dao;
 
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -25,6 +26,18 @@ public class ProjectDao {
     
     try {
       return sqlSession.selectList("ProjectDao.selectList");
+    } finally {     
+      sqlSession.close();
+    }    
+  }
+  
+  public Project selectOneByNumber(int no) throws Exception {
+    SqlSession sqlSession = sqlSessionFactory.openSession();
+    
+    try {
+      HashMap<String, Object> paramMap  =  new HashMap<>();
+      paramMap.put("no", no);
+      return sqlSession.selectOne("ProjectDao.selectOne", no);
     } finally {     
       sqlSession.close();
     }    
