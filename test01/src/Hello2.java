@@ -15,7 +15,7 @@ public class Hello2 {
     System.out.println("양모4");
     System.out.println("ADSAS");
     
-    
+    System.out.println("kkkkkkkkkkkkkkkkkkkk");
   }
 
 }
