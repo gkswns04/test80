@@ -12,7 +12,7 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import bitcamp.pms.context.ApplicationContext;
 import bitcamp.pms.context.request.RequestHandler;
 import bitcamp.pms.context.request.RequestHandlerMapping;
-import bitcamp.pms.controller.AuthController;
+import bitcamp.pms.controller.AuthControllerMember;
 import bitcamp.pms.controller.AuthController2;
 import bitcamp.pms.util.Session; 
 
@@ -69,8 +69,8 @@ public class ProjectApp {
   }
   
   public void run() {    
-    AuthController authController = 
-        (AuthController)appContext.getBean(AuthController.class);
+    AuthControllerMember authController = 
+        (AuthControllerMember)appContext.getBean(AuthControllerMember.class);
     AuthController2 authController2 = 
         (AuthController2)appContext.getBean(AuthController2.class);
     String input; 

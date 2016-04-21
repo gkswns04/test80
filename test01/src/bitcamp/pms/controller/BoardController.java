@@ -25,8 +25,8 @@ public class BoardController {
     board.setTitle(keyScan.nextLine());
     System.out.print("내용? ");
     board.setContent(keyScan.nextLine());
-    System.out.print("암호? ");
-    board.setPassword(keyScan.nextLine());    
+    System.out.print("작성자? ");
+    board.setWriter(keyScan.nextLine());    
     if (CommandUtil.confirm(keyScan, "저장하시겠습니까?")) {         
       try {
         boardDao.insert(board);   
@@ -73,8 +73,8 @@ public class BoardController {
       List<Board> boards = boardDao.selectList();          
       System.out.println("저장된 게시물 목록입니다.");
       for (Board board : boards) {
-        System.out.printf("%d번 %s, %d, %s\n", board.getNo(),
-            board.getTitle(), board.getViews(), board.getCreatedDate());        
+        System.out.printf("%d번 %s, %s, %s\n", board.getNo(),
+            board.getTitle(), board.getWriter(), board.getCreatedDate());        
       }
     } catch (Exception e) {
       throw new RuntimeException("게시판 데이터 로딩 실패!", e);
@@ -93,8 +93,8 @@ public class BoardController {
       board.setTitle(keyScan.nextLine());
       System.out.printf("내용(%s)? ", board.getContent());
       board.setContent(keyScan.nextLine());
-      System.out.print("암호? ");
-      board.setPassword(keyScan.nextLine());     
+      System.out.print("작성자? ");
+      board.setWriter(keyScan.nextLine());     
       
       if (CommandUtil.confirm(keyScan, "변경 하시겠습니까?")) {        
         int count = boardDao.update(board);

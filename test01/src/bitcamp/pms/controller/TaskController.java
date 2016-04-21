@@ -80,7 +80,7 @@ public class TaskController {
     try {
       List<Task> tasks = taskDao.selectList();
       for (Task task : tasks) {
-        System.out.printf("%d번 %s, %s, %s, %s\n", task.getNo(), 
+        System.out.printf("%d번 %s, %s, %s, %s\n", task.getTno(), 
               task.getWorkerEmail(), task.getTitle(), 
               task.getStartDate(), task.getEndDate());
       }  

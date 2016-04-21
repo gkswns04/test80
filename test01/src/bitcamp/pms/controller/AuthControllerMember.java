@@ -13,7 +13,7 @@ import bitcamp.pms.util.CommandUtil;
 import bitcamp.pms.util.Session;
 
 @Controller
-public class AuthController {  
+public class AuthControllerMember {  
   Scanner keyScan;
   MemberDao memberDao;  
   Session session;
