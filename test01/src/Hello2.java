@@ -6,6 +6,11 @@ public class Hello2 {
     System.out.println("okok");
     System.out.println("nono");
     System.out.println("hi");
+    System.out.println("양모");
+    System.out.println("양모");
+    System.out.println("양모");
+    System.out.println("양모");
+    
   }
 
 }
