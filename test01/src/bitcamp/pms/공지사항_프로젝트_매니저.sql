@@ -1,9 +1,9 @@
 /*매니저 데이터*/
-insert into MANAGERS(TNM,TEL,EMAIL) values ('김매니저','111-1111','kim@test.com');
-insert into MANAGERS(TNM,TEL,EMAIL) values ('이매니저','111-1112','lee@test.com');
-insert into MANAGERS(TNM,TEL,EMAIL) values ('박매니저','111-1113','park@test.com');
-insert into MANAGERS(TNM,TEL,EMAIL) values ('명매니저','111-1114','myeung@test.com');
-insert into MANAGERS(TNM,TEL,EMAIL) values ('송매니저','111-1115','song@test.com');
+insert into MANAGERS(MANM,TEL,EMAIL) values ('김매니저','111-1111','kim@test.com');
+insert into MANAGERS(MANM,TEL,EMAIL) values ('이매니저','111-1112','lee@test.com');
+insert into MANAGERS(MANM,TEL,EMAIL) values ('박매니저','111-1113','park@test.com');
+insert into MANAGERS(MANM,TEL,EMAIL) values ('명매니저','111-1114','myeung@test.com');
+insert into MANAGERS(MANM,TEL,EMAIL) values ('송매니저','111-1115','song@test.com');
 
 
 /*공지사항 데이터*/

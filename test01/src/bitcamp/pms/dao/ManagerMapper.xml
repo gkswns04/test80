@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+<mapper namespace="ManagerDao">
+  <!-- 테이블의 컬럼 이름과 VO 클래스의 프로퍼티 이름을 미리 연결해 둘수 있다. -->
+  <!-- 여러 군데에서 중복되는 SQL 문을 분리하여 관리 -->
+  <sql id="select01">
+  select * from MANAGERS
+  </sql>
+  <resultMap type="Manager" id="ManagerMap">
+    <!-- PK 컬럼은 id태그로 선언하라 -->
+    <id     column="MANO"    property="no"/>
+    <result column="MANM"  property="name"/>    
+    <result column="PWD"    property="password"/>    
+  </resultMap>
+
+  <!-- 파라미터나 결과에 대해 데이터 차입을 지정할 때,
+       mybatis 설정 파일에 선언된 별명을 사용한다.
+   -->
+  <insert id="insert" parameterType="Manager">
+    insert into MANAGERS(MANM,EMAIL,PWD,TEL)
+    values(#{name},#{email},#{password},#{tel}) 
+  </insert>
+  
+  <update id="update" parameterType="Manager">
+    update MANAGERS set
+      MANM=#{name},
+      EMAIL=#{email},
+      TEL=#{tel}
+    where MANO=#{no}  
+  </update>  
+  
+  <!-- paramaterType이 원시데이터 타입일 경우,
+      => 프로퍼티 이름은 아무거나 넣어도 된다.
+   -->
+  <delete id="delete" parameterType="int">
+    delete from MANAGERS where MANO=#{no}
+  </delete>
+  <!-- resultMap에 컬럼에 대응하는 프로퍼티 정보를 미리 설정했기 때문에,
+       SQL문에서는 각 컬럼에 대해 별명을 부여할 필요가 없다.
+       단, resultType 속성 대신 resultMap속성을 지정해야 한다.      
+   -->
+  <select id="selectList" resultMap="ManagerMap">
+    <include refid="select01"/>
+    order by MANM asc
+  </select>
+  
+  <select id="selectOne" parameterType="map" resultMap="ManagerMap">
+    <include refid="select01"/>
+     where 
+    <if test="no != null">
+      MANO=#{no}
+    </if>
+    <if test="email != null">
+     EMAIL=#{email}
+    </if>
+  </select>  
+  
+  
+  <select id="isManager" parameterType="map" resultType="int">
+    select count(*) 
+    from MANAGERS 
+    where EMAIL=#{email} and PWD=#{password}
+  </select>
+  
+  
+</mapper>

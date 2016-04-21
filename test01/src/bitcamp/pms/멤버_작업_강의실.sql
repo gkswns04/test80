@@ -13,9 +13,9 @@ insert into TASKS(TNM) values('버전4');
 insert into TASKS(TNM) values('버전5');
 
 /* 강의실 데이터 */
-insert into ROOMS(RNO,RNM) values('K301', '강남 301호');
-insert into ROOMS(RNO,RNM) values('K303', '강남 303호');
-insert into ROOMS(RNO,RNM) values('K401', '강남 401호');
-insert into ROOMS(RNO,RNM) values('K501', '강남 501호');
-insert into ROOMS(RNO,RNM) values('J801', '종로 801호');
-insert into ROOMS(RNO,RNM) values('J802', '강남 802호');
+insert into ROOMS(RNO,RNM) values('301', '301호');
+insert into ROOMS(RNO,RNM) values('303', '303호');
+insert into ROOMS(RNO,RNM) values('401', '401호');
+insert into ROOMS(RNO,RNM) values('501', '501호');
+insert into ROOMS(RNO,RNM) values('801', '801호');
+insert into ROOMS(RNO,RNM) values('802', '802호');
