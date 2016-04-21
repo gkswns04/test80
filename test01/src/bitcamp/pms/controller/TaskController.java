@@ -23,10 +23,8 @@ public class TaskController {
   public void add(Scanner keyScan) {       
     
     Task task = new Task();
-    System.out.print("이메일? ");
-    task.setWorkerEmail(keyScan.nextLine());
     System.out.print("태스크명? ");
-    task.setTitle(keyScan.nextLine());
+    task.setTaskName(keyScan.nextLine());    
     System.out.print("내용? ");
     task.setContent(keyScan.nextLine());
     System.out.print("시작일? ");
@@ -80,9 +78,8 @@ public class TaskController {
     try {
       List<Task> tasks = taskDao.selectList();
       for (Task task : tasks) {
-        System.out.printf("%d번 %s, %s, %s, %s\n", task.getTno(), 
-              task.getWorkerEmail(), task.getTitle(), 
-              task.getStartDate(), task.getEndDate());
+        System.out.printf("%d번 %s, %s, %s\n", task.getTno(), 
+              task.getTaskName(), task.getStartDate(), task.getEndDate());
       }  
     } catch (Exception e) {
       System.out.println("데이터 로딩중 오류 발생");
@@ -96,16 +93,16 @@ public class TaskController {
       System.out.print("변경하고 싶은 태스크 번호를 입력하세요. ");
       int no = Integer.parseInt(keyScan.nextLine());      
       Task task = taskDao.selectOne(no);      
-      System.out.printf("이메일(%s)? ", task.getWorkerEmail());
-      task.setWorkerEmail(keyScan.nextLine());
-      System.out.printf("태스크명(%s)? ", task.getTitle());
-      task.setTitle(keyScan.nextLine());
+      System.out.printf("태스크명(%s)? ", task.getTaskName());
+      task.setTaskName(keyScan.nextLine());      
       System.out.printf("내용(%s)? ", task.getContent());
       task.setContent(keyScan.nextLine());
       System.out.printf("시작일(%s)? ", task.getStartDate());
       task.setStartDate(Date.valueOf(keyScan.nextLine()));
       System.out.printf("종료일(%s)? ", task.getEndDate());
       task.setEndDate(Date.valueOf(keyScan.nextLine()));
+      System.out.print("프로젝트번호? ");
+      task.setPno(Integer.parseInt(keyScan.nextLine()));
       if (CommandUtil.confirm(keyScan, "변경 하시겠습니까?")) {
         int count = taskDao.update(task);
           if (count > 0) {

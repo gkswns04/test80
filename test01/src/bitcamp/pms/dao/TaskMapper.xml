@@ -6,37 +6,37 @@
   <!-- 테이블의 컬럼 이름과 VO 클래스의 프로퍼티 이름을 미리 연결해 둘수 있다. -->
   <resultMap type="Task" id="TaskMap">
     <!-- PK 컬럼은 id태그로 선언하라 -->
-    <id     column="TNO"    property="no"/>
-    <result column="EMAIL"  property="workerEmail"/>
+    <id     column="TNO"    property="tno"/>
+    <result column="PNO"    property="pno"/>
+    <result column="TITLE"  property="taskName"/>    
     <result column="CONTS"  property="content"/>
-    <result column="SDT"  property="startDate"/>
-    <result column="EDT"  property="endDate"/>
-    <result column="STAT"    property="state"/>      
+    <result column="SD_DT"  property="startDate"/>
+    <result column="ED_DT"  property="endDate"/>          
   </resultMap>
 
   <!-- 파라미터나 결과에 대해 데이터 차입을 지정할 때,
        mybatis 설정 파일에 선언된 별명을 사용한다.
    -->
   <insert id="insert" parameterType="Task">
-    insert into TASKS(EMAIL,TITLE,CONTS,SDT,EDT)
-    values(#{workerEmail},#{title},#{content},#{startDate},#{endDate}) 
+    insert into TASKS(TITLE)
+    values(#{title}) 
   </insert>
   
   <update id="update" parameterType="Task">
     update TASKS set      
-      EMAIL=#{workerEmail},
-      TITLE=#{title},
+      TITLE=#{taskName},
       CONTS=#{content},
-      SDT=#{startDate},
-      EDT=#{endDate}      
-    where TNO=#{no}  
+      SD_DT=#{startDate},
+      ED_DT=#{endDate},     
+      PNO=#{pno} 
+    where TNO=#{tno}  
   </update>  
   
   <!-- paramaterType이 원시데이터 타입일 경우,
       => 프로퍼티 이름은 아무거나 넣어도 된다.
    -->
   <delete id="delete" parameterType="int">
-    delete from TASKS where TNO=#{no}
+    delete from TASKS where TNO=#{tno}
   </delete>
   <!-- resultMap에 컬럼에 대응하는 프로퍼티 정보를 미리 설정했기 때문에,
        SQL문에서는 각 컬럼에 대해 별명을 부여할 필요가 없다.
@@ -47,6 +47,6 @@
   </select>
   
   <select id="selectOne" parameterType="int" resultMap="TaskMap">
-    select * from TASKS where TNO=#{no}
+    select * from TASKS where TNO=#{tno}
   </select>
 </mapper>
