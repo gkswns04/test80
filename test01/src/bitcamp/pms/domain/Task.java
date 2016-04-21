@@ -2,53 +2,42 @@ package bitcamp.pms.domain;
 
 import java.sql.Date;
 
-/*
-title:String
-- description:String
-- memberNo:int
-- projectNo:int
-- state:int
-=> bitcamp.pms
-*/
 public class Task {
-  private int no;
-  private String workerEmail;
-  private String title;
+  
+  private String taskName;
   private String content;
   private Date startDate;
   private Date endDate;
-  private int state;
+  private int tno;
+  private int pno;
   
   public Task() {}
   
+  public Task(String taskName, String content, Date startDate, 
+      Date endDate, int tno, int pno) {
+    super();
+    
+    this.taskName = taskName;
+    this.content = content;
+    this.startDate = startDate;
+    this.endDate = endDate;
+    this.tno = tno;
+    this.pno = pno;
+  }
+
   @Override
   public String toString() {
-    return "Task [no=" + no + ", workerEmail=" + workerEmail + ", title=" + title + ", content=" + content
-        + ", startDate=" + startDate + ", endDate=" + endDate + ", state=" + state + "]";
+    return "Task [taskName=" + taskName + ", "
+        + "content=" + content + ", startDate=" + startDate
+        + ", endDate=" + endDate + ", tno=" + tno + ", pno=" + pno + "]";
   }
 
-  public int getNo() {
-    return no;
+  public String getTaskName() {
+    return taskName;
   }
 
-  public void setNo(int no) {
-    this.no = no;
-  }
-
-  public String getWorkerEmail() {
-    return workerEmail;
-  }
-
-  public void setWorkerEmail(String workerEmail) {
-    this.workerEmail = workerEmail;
-  }
-
-  public String getTitle() {
-    return title;
-  }
-
-  public void setTitle(String title) {
-    this.title = title;
+  public void setTaskName(String taskName) {
+    this.taskName = taskName;
   }
 
   public String getContent() {
@@ -75,15 +64,19 @@ public class Task {
     this.endDate = endDate;
   }
 
-  public int getState() {
-    return state;
+  public int getTno() {
+    return tno;
   }
 
-  public void setState(int state) {
-    this.state = state;
+  public void setTno(int tno) {
+    this.tno = tno;
   }
 
+  public int getPno() {
+    return pno;
+  }
 
-
-
+  public void setPno(int pno) {
+    this.pno = pno;
+  }  
 }
