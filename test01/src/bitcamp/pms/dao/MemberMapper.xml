@@ -36,15 +36,15 @@
       BAS_ADDR=#{baseAddr},
       M_ADDR=#{memAddr},
       ROLE=#{role},
-      PNO=#{pno}
-    where MNO=#{no}  
+      PNO=#{pno}     
+    where MNO=#{mno}  
   </update>  
   
   <!-- paramaterType이 원시데이터 타입일 경우,
       => 프로퍼티 이름은 아무거나 넣어도 된다.
    -->
   <delete id="delete" parameterType="int">
-    delete from MEMBERS where MNO=#{no}
+    delete from MEMBERS where MNO=#{mno}
   </delete>
   <!-- resultMap에 컬럼에 대응하는 프로퍼티 정보를 미리 설정했기 때문에,
        SQL문에서는 각 컬럼에 대해 별명을 부여할 필요가 없다.

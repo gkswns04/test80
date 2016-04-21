@@ -78,7 +78,8 @@ public class MemberController {
     try {
       List<Member> members = memberDao.selectList();      
       for (Member member : members) {        
-        System.out.printf("%d, %s, %s, %s\n", member.getMno(), member.getName(), member.getEmail(), member.getTel());
+        System.out.printf("%d, %d, %s, %s, %s\n", member.getMno(), member.getPno(), 
+            member.getName(), member.getEmail(), member.getTel());
       }
     } catch (Exception e) {
       throw new RuntimeException("회원 데이터 로딩 실패!", e);
