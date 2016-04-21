@@ -29,31 +29,6 @@ public class MemberController {
   public void setMemberDao(MemberDao memberDao) {
     this.memberDao = memberDao;
   }
-
-  @RequestMapping("add.do")
-  public void add(Scanner keyScan) {    
-    Member member = new Member();
-    System.out.print("이름? ");
-    member.setName(keyScan.nextLine());
-    System.out.print("이메일? ");
-    member.setEmail(keyScan.nextLine()); 
-    System.out.print("암호? ");
-    member.setPassword(keyScan.nextLine());
-    System.out.print("전화? ");
-    member.setTel(keyScan.nextLine());
-    if (CommandUtil.confirm(keyScan, "저장하시겠습니까?")) {
-      try {
-        memberDao.insert(member);
-        System.out.println("저장하였습니다.");
-        System.out.println("-----------------------------------");      
-      } catch (Exception e) {
-        System.out.println("데이터 저장을 실패하였습니다.");
-      }
-    } else {
-      System.out.println("저장을 취소하였습니다.");
-      System.out.println("-----------------------------------");
-    }
-  } 
   
   @RequestMapping("delete.do")  
   public void delete(Scanner keyScan) {
