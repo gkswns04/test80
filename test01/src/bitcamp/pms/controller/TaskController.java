@@ -86,8 +86,8 @@ public class TaskController {
   
   @RequestMapping("list.do")
   public void list() {
-    if((boolean)session.getPosition("memberState")) {
-      System.out.println("저장된 태스크 목록입니다.");
+    if((boolean)session.getPosition("managerState")) {
+      System.out.println("저장된 태스크 목록입니다.");      
       try {
         List<Task> tasks = taskDao.selectList();
         for (Task task : tasks) {
