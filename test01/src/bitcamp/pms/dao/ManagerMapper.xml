@@ -10,8 +10,8 @@
   </sql>
   <resultMap type="Manager" id="ManagerMap">
     <!-- PK 컬럼은 id태그로 선언하라 -->
-    <id     column="MANO"    property="no"/>
-    <result column="MANM"  property="name"/>    
+    <id     column="MANO"    property="mano"/>
+    <result column="MANM"  property="managerName"/>    
     <result column="PWD"    property="password"/>    
   </resultMap>
 
@@ -20,12 +20,12 @@
    -->
   <insert id="insert" parameterType="Manager">
     insert into MANAGERS(MANM,EMAIL,PWD,TEL)
-    values(#{name},#{email},#{password},#{tel}) 
+    values(#{managerName},#{email},#{password},#{tel}) 
   </insert>
   
   <update id="update" parameterType="Manager">
     update MANAGERS set
-      MANM=#{name},
+      MANM=#{managerName},
       EMAIL=#{email},
       TEL=#{tel}
     where MANO=#{no}  
