@@ -6,15 +6,27 @@ import java.util.Scanner;
 
 import bitcamp.pms.annotation.Controller;
 import bitcamp.pms.annotation.RequestMapping;
+import bitcamp.pms.dao.MemberDao;
 import bitcamp.pms.dao.TaskDao;
 import bitcamp.pms.domain.Task;
 import bitcamp.pms.util.CommandUtil;
+import bitcamp.pms.util.Session;
 
 @Controller
 @RequestMapping("task/")
-public class TaskController {
- 
+public class TaskController {    
+  Scanner keyScan;
+  Session session;
   private TaskDao taskDao;
+  
+  public void setSession(Session session) {
+    this.session = session;
+  }
+
+  public void setScanner(Scanner keyScan) {
+    this.keyScan = keyScan;
+    
+  }
  
   public void setTaskDao(TaskDao taskDao) {
     this.taskDao = taskDao;
@@ -74,15 +86,17 @@ public class TaskController {
   
   @RequestMapping("list.do")
   public void list() {
-    System.out.println("저장된 태스크 목록입니다.");
-    try {
-      List<Task> tasks = taskDao.selectList();
-      for (Task task : tasks) {
-        System.out.printf("%d번 %s, %s, %s\n", task.getTno(), 
+    if((boolean)session.getPosition("memberState")) {
+      System.out.println("저장된 태스크 목록입니다.");
+      try {
+        List<Task> tasks = taskDao.selectList();
+        for (Task task : tasks) {
+          System.out.printf("%d번 %d, %s, %s, %s\n", task.getTno(), task.getPno(), 
               task.getTaskName(), task.getStartDate(), task.getEndDate());
-      }  
-    } catch (Exception e) {
-      System.out.println("데이터 로딩중 오류 발생");
+        }  
+      } catch (Exception e) {
+        System.out.println("데이터 로딩중 오류 발생");
+      }      
     }
   }
   

@@ -153,7 +153,7 @@ public class ManagerAuthController {
     
     try{
       managerDao.insert(manager);
-      System.out.printf("매니저이 되신걸 환영합니다! %s님\n", manager.getManagerName());
+      System.out.printf("매니저가 되신걸 환영합니다! %s님\n", manager.getManagerName());
     } catch (Exception e) {
         System.out.println("매니저 등록에 실패했습니다.");
     }
