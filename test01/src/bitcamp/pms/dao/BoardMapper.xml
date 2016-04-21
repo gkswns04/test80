@@ -17,16 +17,27 @@
        mybatis 설정 파일에 선언된 별명을 사용한다.
    -->
   <insert id="insert" parameterType="Board">
+<<<<<<< .mine
+    insert into BOARDS(TITLE,CONTS,WRT)    
+    values(#{title},#{content},#{WRT},now()) 
+=======
     insert into BOARDS(TITLE,CONTS,WRT,CR_DT)    
     values(#{title},#{content},#{writer},now()) 
+>>>>>>> .r30
   </insert>
   
   <update id="update" parameterType="Board">    
     update BOARDS set
       TITLE=#{title},
       CONTS=#{content},
+<<<<<<< .mine
+      WRITER=#{WRT},
+      
+      CDT=now()
+=======
       WRT=#{writer},
       CR_DT=now()
+>>>>>>> .r30
     where BNO=#{no}  
   </update>  
   
