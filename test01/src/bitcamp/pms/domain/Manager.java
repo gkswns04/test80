@@ -1,20 +1,30 @@
 package bitcamp.pms.domain;
 
 public class Manager {
-  private String mano;
+  private int mano;
   private String tel;
   private String email;
   private String managerName;
+  private String password;
   
+  public Manager() {}
   
-  public Manager(String mano, String tel, String email, String managerName) {
-    super();
+  public Manager(int mano, String tel, String email, String managerName, String password) {  
     this.mano = mano;
     this.tel = tel;
     this.email = email;
     this.managerName = managerName;
+    this.password = password;
   }
 
+
+  public String getPassword() {
+    return password;
+  }
+
+  public void setPassword(String password) {
+    this.password = password;
+  }
 
   @Override
   public String toString() {
@@ -23,12 +33,12 @@ public class Manager {
   }
 
 
-  public String getMano() {
+  public int getMano() {
     return mano;
   }
 
 
-  public void setMano(String mano) {
+  public void setMano(int mano) {
     this.mano = mano;
   }
 

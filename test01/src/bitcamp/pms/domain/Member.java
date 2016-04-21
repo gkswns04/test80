@@ -17,9 +17,8 @@ public class Member {
 
   public Member(String name, String post, String baseAddr, 
       String memAddr, String password, String tel,
-      String email, String role, int mno, int pno) {
+      String email, String role, int mno, int pno) {  
     
-    super();
     this.name = name;
     this.post = post;
     this.baseAddr = baseAddr;
