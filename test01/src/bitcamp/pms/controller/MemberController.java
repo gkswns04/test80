@@ -115,15 +115,15 @@ public class MemberController {
       member.setPassword(keyScan.nextLine());
       System.out.printf("전화(%s)? ", member.getTel());
       member.setTel(keyScan.nextLine());
-      System.out.print("우편번호? ");
+      System.out.printf("우편번호(%s)? ", member.getPost());
       member.setPost(keyScan.nextLine());
-      System.out.print("기본주소? ");
+      System.out.printf("기본주소(%s)? ", member.getBaseAddr());
       member.setBaseAddr(keyScan.nextLine());
-      System.out.print("상세주소? ");
+      System.out.printf("상세주소(%s)? ", member.getMemAddr());
       member.setMemAddr(keyScan.nextLine());
-      System.out.print("역할? ");
+      System.out.printf("역할(%s)? ", member.getRole());
       member.setRole(keyScan.nextLine());
-      System.out.print("프로젝트번호? ");
+      System.out.printf("프로젝트번호(%s)? ", member.getPno());
       member.setPno(Integer.parseInt(keyScan.nextLine()));
       
       if (CommandUtil.confirm(keyScan, "변경하시겠습니까?")) {        
