@@ -14,9 +14,7 @@ public class Task {
   public Task() {}
   
   public Task(String taskName, String content, Date startDate, 
-      Date endDate, int tno, int pno) {
-    super();
-    
+      Date endDate, int tno, int pno) {    
     this.taskName = taskName;
     this.content = content;
     this.startDate = startDate;

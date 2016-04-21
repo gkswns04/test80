@@ -8,7 +8,7 @@
     <!-- PK 컬럼은 id태그로 선언하라 -->
     <id     column="TNO"    property="tno"/>
     <result column="PNO"    property="pno"/>
-    <result column="TITLE"  property="taskName"/>    
+    <result column="TNM"  property="taskName"/>    
     <result column="CONTS"  property="content"/>
     <result column="SD_DT"  property="startDate"/>
     <result column="ED_DT"  property="endDate"/>          
@@ -18,13 +18,13 @@
        mybatis 설정 파일에 선언된 별명을 사용한다.
    -->
   <insert id="insert" parameterType="Task">
-    insert into TASKS(TITLE)
-    values(#{title}) 
+    insert into TASKS(TNM)
+    values(#{taskName}) 
   </insert>
   
   <update id="update" parameterType="Task">
     update TASKS set      
-      TITLE=#{taskName},
+      TNM=#{taskName},
       CONTS=#{content},
       SD_DT=#{startDate},
       ED_DT=#{endDate},     
