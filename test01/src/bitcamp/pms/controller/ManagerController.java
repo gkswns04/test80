@@ -11,65 +11,83 @@ import bitcamp.pms.dao.ManagerDao;
 import bitcamp.pms.domain.Manager;
 import bitcamp.pms.util.CommandUtil;
 import bitcamp.pms.util.PatternChecker;
+import bitcamp.pms.util.Session;
 
 @Controller
 @RequestMapping("manager/")
 public class ManagerController {
-  
+  Session session;
+  Scanner keyScan;
   private ManagerDao managerDao;
+  
+  public void setSession(Session session) {
+    this.session = session;
+  }
+
+  public void setScanner(Scanner keyScan) {
+    this.keyScan = keyScan;    
+  }
  
   public void setManagerDao(ManagerDao managerDao) {
     this.managerDao = managerDao;
   }
 
-  @RequestMapping("add.do")
-  public void add(Scanner keyScan) {    
-    Manager manager = new Manager();
-    System.out.print("이름? ");
-    manager.setManagerName(keyScan.nextLine());
-    System.out.print("이메일? ");
-    manager.setEmail(keyScan.nextLine()); 
-    System.out.print("암호? ");
-    manager.setPassword(keyScan.nextLine());
-    System.out.print("전화? ");
-    manager.setTel(keyScan.nextLine());
-    if (CommandUtil.confirm(keyScan, "저장하시겠습니까?")) {
-      try {
-        managerDao.insert(manager);
-        System.out.println("저장하였습니다.");
-        System.out.println("-----------------------------------");      
-      } catch (Exception e) {
-        System.out.println("데이터 저장을 실패하였습니다.");
-      }
+  @RequestMapping("add.do")  
+  public void add(Scanner keyScan) {
+    if((boolean)session.getPosition("managerState")) {
+      Manager manager = new Manager();
+      System.out.print("이름? ");
+      manager.setManagerName(keyScan.nextLine());
+      System.out.print("이메일? ");
+      manager.setEmail(keyScan.nextLine()); 
+      System.out.print("암호? ");
+      manager.setPassword(keyScan.nextLine());
+      System.out.print("전화? ");
+      manager.setTel(keyScan.nextLine());
+      if (CommandUtil.confirm(keyScan, "저장하시겠습니까?")) {
+        try {
+          managerDao.insert(manager);
+          System.out.println("저장하였습니다.");
+          System.out.println("-----------------------------------");      
+        } catch (Exception e) {
+          System.out.println("데이터 저장을 실패하였습니다.");
+        }
+      } else {
+        System.out.println("저장을 취소하였습니다.");
+        System.out.println("-----------------------------------");
+      }      
     } else {
-      System.out.println("저장을 취소하였습니다.");
-      System.out.println("-----------------------------------");
+      System.out.println("권한이 없습니다.");
     }
   } 
   
   @RequestMapping("delete.do")
-  public void delete(Scanner keyScan) {    
-    try {      
-      this.list();
-      System.out.print("삭제할 매니저 번호는? ");
-      int no = Integer.parseInt(keyScan.nextLine());
-
-      if (CommandUtil.confirm(keyScan, "정말 삭제하시겠습니까?")) {
-        int count =  managerDao.delete(no);
-        if (count > 0) {
-          System.out.println("삭제하였습니다.");
-          System.out.println("-----------------------------------");
-          this.list();
+  public void delete(Scanner keyScan) {   
+    if((boolean)session.getPosition("managerState")) {
+      try {      
+        this.list();
+        System.out.print("삭제할 매니저 번호는? ");
+        int no = Integer.parseInt(keyScan.nextLine());
+        
+        if (CommandUtil.confirm(keyScan, "정말 삭제하시겠습니까?")) {
+          int count =  managerDao.delete(no);
+          if (count > 0) {
+            System.out.println("삭제하였습니다.");
+            System.out.println("-----------------------------------");
+            this.list();
+          } else {
+            System.out.println("유효하지 않은 번호이거나, 이미 삭제된 항목입니다.");          
+          }
         } else {
-          System.out.println("유효하지 않은 번호이거나, 이미 삭제된 항목입니다.");          
+          System.out.println("취소하였습니다.");
+          System.out.println("-----------------------------------");
         }
-      } else {
-        System.out.println("취소하였습니다.");
-        System.out.println("-----------------------------------");
-      }
-    } catch (Exception e) {
-      System.out.println("데이터 처리에 실패했습니다.");
-    }   
+      } catch (Exception e) {
+        System.out.println("데이터 처리에 실패했습니다.");
+      }      
+    } else {
+      System.out.println("권한이 없습니다.");
+    }
   }
   
   @RequestMapping("list.do")
@@ -134,34 +152,38 @@ public class ManagerController {
   
   @RequestMapping("update.do")
   public void update(Scanner keyScan) {    
-    try {
-      this.list();
-      System.out.print("변경할 매니저 번호는? ");
-      int no = Integer.parseInt(keyScan.nextLine());      
-      Manager manager = managerDao.selectOne(no);      
-      System.out.printf("이름(%s)? ", manager.getManagerName());
-      manager.setManagerName(keyScan.nextLine());
-      System.out.printf("이메일(%s)? ", manager.getEmail());
-      manager.setEmail(keyScan.nextLine());
-      System.out.printf("암호(%s)? ", manager.getPassword());
-      manager.setPassword(keyScan.nextLine());
-      System.out.printf("전화(%s)? ", manager.getTel());
-      manager.setTel(keyScan.nextLine());
-      if (CommandUtil.confirm(keyScan, "변경하시겠습니까?")) {        
-        int count =  managerDao.update(manager);
-        if (count > 0) {
-          System.out.println("변경 하였습니다.");
-          System.out.println("-----------------------------------");
-          this.list();
+    if((boolean)session.getPosition("managerState")) {
+      try {
+        this.list();
+        System.out.print("변경할 매니저 번호는? ");
+        int no = Integer.parseInt(keyScan.nextLine());      
+        Manager manager = managerDao.selectOne(no);      
+        System.out.printf("이름(%s)? ", manager.getManagerName());
+        manager.setManagerName(keyScan.nextLine());
+        System.out.printf("이메일(%s)? ", manager.getEmail());
+        manager.setEmail(keyScan.nextLine());
+        System.out.printf("암호(%s)? ", manager.getPassword());
+        manager.setPassword(keyScan.nextLine());
+        System.out.printf("전화(%s)? ", manager.getTel());
+        manager.setTel(keyScan.nextLine());
+        if (CommandUtil.confirm(keyScan, "변경하시겠습니까?")) {        
+          int count =  managerDao.update(manager);
+          if (count > 0) {
+            System.out.println("변경 하였습니다.");
+            System.out.println("-----------------------------------");
+            this.list();
+          } else {
+            System.out.println("유효하지 않은 번호이거나, 이미 삭제된 항목입니다.");
+          }
         } else {
-        System.out.println("유효하지 않은 번호이거나, 이미 삭제된 항목입니다.");
+          System.out.println("취소하였습니다.");
+          System.out.println("-----------------------------------");
         }
-      } else {
-        System.out.println("취소하였습니다.");
-        System.out.println("-----------------------------------");
-      }
-    } catch (Exception e) {
-      System.out.println("데이터 로딩 또는 저장중 오류가 발생했습니다.");
+      } catch (Exception e) {
+        System.out.println("데이터 로딩 또는 저장중 오류가 발생했습니다.");
+      }      
+    } else {
+      System.out.println("권한이 없습니다.");
     }
   }
 }

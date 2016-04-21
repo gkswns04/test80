@@ -11,13 +11,21 @@ import bitcamp.pms.dao.MemberDao;
 import bitcamp.pms.domain.Member;
 import bitcamp.pms.util.CommandUtil;
 import bitcamp.pms.util.PatternChecker;
+import bitcamp.pms.util.Session;
 
 @Controller
 @RequestMapping("member/")
 public class MemberController {
-  
+  Session session;
+  Scanner keyScan;
   private MemberDao memberDao;
- 
+  
+  public void setSession(Session session) {
+    this.session = session;
+  }
+  public void setScanner(Scanner keyScan) {
+    this.keyScan = keyScan;    
+  }
   public void setMemberDao(MemberDao memberDao) {
     this.memberDao = memberDao;
   }
@@ -47,29 +55,33 @@ public class MemberController {
     }
   } 
   
-  @RequestMapping("delete.do")
-  public void delete(Scanner keyScan) {    
-    try {      
-      this.list();
-      System.out.print("삭제할 회원 번호는? ");
-      int no = Integer.parseInt(keyScan.nextLine());
-
-      if (CommandUtil.confirm(keyScan, "정말 삭제하시겠습니까?")) {
-        int count =  memberDao.delete(no);
-        if (count > 0) {
-          System.out.println("삭제하였습니다.");
-          System.out.println("-----------------------------------");
-          this.list();
+  @RequestMapping("delete.do")  
+  public void delete(Scanner keyScan) {
+    if((boolean)session.getPosition("managerState")) {
+      try {      
+        this.list();
+        System.out.print("삭제할 회원 번호는? ");
+        int no = Integer.parseInt(keyScan.nextLine());
+        
+        if (CommandUtil.confirm(keyScan, "정말 삭제하시겠습니까?")) {
+          int count =  memberDao.delete(no);
+          if (count > 0) {
+            System.out.println("삭제하였습니다.");
+            System.out.println("-----------------------------------");
+            this.list();
+          } else {
+            System.out.println("유효하지 않은 번호이거나, 이미 삭제된 항목입니다.");          
+          }
         } else {
-          System.out.println("유효하지 않은 번호이거나, 이미 삭제된 항목입니다.");          
+          System.out.println("취소하였습니다.");
+          System.out.println("-----------------------------------");
         }
-      } else {
-        System.out.println("취소하였습니다.");
-        System.out.println("-----------------------------------");
-      }
-    } catch (Exception e) {
-      System.out.println("데이터 처리에 실패했습니다.");
-    }   
+      } catch (Exception e) {
+        System.out.println("데이터 처리에 실패했습니다.");
+      }      
+    } else {
+      System.out.println("권한이 없습니다.");
+    }
   }
   
   @RequestMapping("list.do")
